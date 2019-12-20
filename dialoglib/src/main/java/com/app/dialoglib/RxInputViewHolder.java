@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-public class RxAlertViewHolder {
+public class RxInputViewHolder {
     public TextView title;
-    public TextView message;
+    public EditText message;
     public View line0;
     public TextView leftButton;
     public View line1;
@@ -20,7 +20,7 @@ public class RxAlertViewHolder {
     public LinearLayout alertLayout;
     public CardView alertContainer;
 
-    public RxAlertViewHolder(View rootView) {
+    public RxInputViewHolder(View rootView) {
         title = rootView.findViewById(R.id.alert_title);
         message = rootView.findViewById(R.id.alert_message);
         line0 = rootView.findViewById(R.id.line0);

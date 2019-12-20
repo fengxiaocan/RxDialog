@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,23 +16,28 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 
-public class RxAlertDialog extends RxDialog {
+public class RxInputDialog extends RxDialog {
 
-    protected RxAlertViewHolder viewHolder;
+    protected RxInputViewHolder viewHolder;
     protected boolean isShowLeft = false;
     protected boolean isShowRight = false;
     protected boolean isShowMiddle = false;
 
-    public RxAlertDialog(Context context) {
+    public RxInputDialog(Context context) {
         super(context);
-        layout = LayoutInflater.from(context).inflate(R.layout.layout_rx_alert_dialog, null);
+        layout = LayoutInflater.from(context).inflate(R.layout.layout_rx_input_dialog, null);
         dialog.setContentView(layout);
-        viewHolder = new RxAlertViewHolder(layout);
+        viewHolder = new RxInputViewHolder(layout);
         noBackground();
     }
 
-    public static RxAlertDialog with(Context context) {
-        return new RxAlertDialog(context);
+    @Override
+    protected float widthPercent() {
+        return 0.76f;
+    }
+
+    public static RxInputDialog with(Context context) {
+        return new RxInputDialog(context);
     }
 
     @Override
@@ -77,34 +83,38 @@ public class RxAlertDialog extends RxDialog {
             }
         }
         super.show();
+        viewHolder.message.requestFocus();
     }
 
-    public RxAlertDialog leftButton(CharSequence title) {
+    public RxInputDialog leftButton(CharSequence title) {
         isShowLeft = true;
         viewHolder.leftButton.setVisibility(View.VISIBLE);
         viewHolder.leftButton.setText(title);
         return this;
     }
 
-    public RxAlertDialog middleButton(CharSequence title) {
+    public RxInputDialog middleButton(CharSequence title) {
         isShowMiddle = true;
         viewHolder.middleButton.setVisibility(View.VISIBLE);
         viewHolder.middleButton.setText(title);
         return this;
     }
 
-    public RxAlertDialog rightButton(CharSequence title) {
+    public RxInputDialog rightButton(CharSequence title) {
         isShowRight = true;
         viewHolder.rightButton.setVisibility(View.VISIBLE);
         viewHolder.rightButton.setText(title);
         return this;
     }
 
-    public RxAlertDialog leftListener(final OnDialogButtonClickListener listener) {
+    public RxInputDialog leftListener(final OnDialogButtonClickListener listener) {
         viewHolder.leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
+                    if (listener instanceof OnInputResultListener) {
+                        ((OnInputResultListener) listener).onResult(viewHolder.message.getText());
+                    }
                     listener.onClickButton(dialog);
                 } else {
                     dismiss();
@@ -114,11 +124,14 @@ public class RxAlertDialog extends RxDialog {
         return this;
     }
 
-    public RxAlertDialog middleListener(final OnDialogButtonClickListener listener) {
+    public RxInputDialog middleListener(final OnDialogButtonClickListener listener) {
         viewHolder.middleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
+                    if (listener instanceof OnInputResultListener) {
+                        ((OnInputResultListener) listener).onResult(viewHolder.message.getText());
+                    }
                     listener.onClickButton(dialog);
                 } else {
                     dismiss();
@@ -128,11 +141,14 @@ public class RxAlertDialog extends RxDialog {
         return this;
     }
 
-    public RxAlertDialog rightListener(final OnDialogButtonClickListener listener) {
+    public RxInputDialog rightListener(final OnDialogButtonClickListener listener) {
         viewHolder.rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
+                    if (listener instanceof OnInputResultListener) {
+                        ((OnInputResultListener) listener).onResult(viewHolder.message.getText());
+                    }
                     listener.onClickButton(dialog);
                 } else {
                     dismiss();
@@ -142,232 +158,271 @@ public class RxAlertDialog extends RxDialog {
         return this;
     }
 
-    public RxAlertDialog leftButton(@StringRes int res) {
+    public RxInputDialog leftButton(@StringRes int res) {
         isShowLeft = true;
         viewHolder.leftButton.setVisibility(View.VISIBLE);
         viewHolder.leftButton.setText(res);
         return this;
     }
 
-    public RxAlertDialog middleButton(@StringRes int res) {
+    public RxInputDialog middleButton(@StringRes int res) {
         isShowMiddle = true;
         viewHolder.middleButton.setVisibility(View.VISIBLE);
         viewHolder.middleButton.setText(res);
         return this;
     }
 
-    public RxAlertDialog rightButton(@StringRes int res) {
+    public RxInputDialog rightButton(@StringRes int res) {
         isShowRight = true;
         viewHolder.rightButton.setVisibility(View.VISIBLE);
         viewHolder.rightButton.setText(res);
         return this;
     }
 
-    public RxAlertDialog leftButtonTextColorRes(@ColorRes int res) {
+    public RxInputDialog leftButtonTextColorRes(@ColorRes int res) {
         viewHolder.leftButton.setTextColor(layout.getResources().getColor(res));
         return this;
     }
 
-    public RxAlertDialog middleButtonTextColorRes(@ColorRes int res) {
+    public RxInputDialog middleButtonTextColorRes(@ColorRes int res) {
         viewHolder.middleButton.setTextColor(layout.getResources().getColor(res));
         return this;
     }
 
-    public RxAlertDialog rightButtonTextColorRes(@ColorRes int res) {
+    public RxInputDialog rightButtonTextColorRes(@ColorRes int res) {
         viewHolder.rightButton.setTextColor(layout.getResources().getColor(res));
         return this;
     }
 
-    public RxAlertDialog leftButtonTextColor(int color) {
+    public RxInputDialog leftButtonTextColor(int color) {
         viewHolder.leftButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog middleButtonTextColor(int color) {
+    public RxInputDialog middleButtonTextColor(int color) {
         viewHolder.middleButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog rightButtonTextColor(int color) {
+    public RxInputDialog rightButtonTextColor(int color) {
         viewHolder.rightButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog leftButtonTextColor(ColorStateList color) {
+    public RxInputDialog leftButtonTextColor(ColorStateList color) {
         viewHolder.leftButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog middleButtonTextColor(ColorStateList color) {
+    public RxInputDialog middleButtonTextColor(ColorStateList color) {
         viewHolder.middleButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog rightButtonTextColor(ColorStateList color) {
+    public RxInputDialog rightButtonTextColor(ColorStateList color) {
         viewHolder.rightButton.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog leftButtonBackgroundResource(@DrawableRes int color) {
+    public RxInputDialog leftButtonBackgroundResource(@DrawableRes int color) {
         viewHolder.leftButton.setBackgroundResource(color);
         return this;
     }
 
-    public RxAlertDialog middleButtonBackgroundResource(@DrawableRes int color) {
+    public RxInputDialog middleButtonBackgroundResource(@DrawableRes int color) {
         viewHolder.middleButton.setBackgroundResource(color);
         return this;
     }
 
-    public RxAlertDialog rightButtonBackgroundResource(@DrawableRes int color) {
+    public RxInputDialog rightButtonBackgroundResource(@DrawableRes int color) {
         viewHolder.rightButton.setBackgroundResource(color);
         return this;
     }
 
-    public RxAlertDialog leftButtonBackgroundColor(int color) {
+    public RxInputDialog leftButtonBackgroundColor(int color) {
         viewHolder.leftButton.setBackgroundColor(color);
         return this;
     }
 
-    public RxAlertDialog middleButtonBackgroundColor(int color) {
+    public RxInputDialog middleButtonBackgroundColor(int color) {
         viewHolder.middleButton.setBackgroundColor(color);
         return this;
     }
 
-    public RxAlertDialog rightButtonBackgroundColor(int color) {
+    public RxInputDialog rightButtonBackgroundColor(int color) {
         viewHolder.rightButton.setBackgroundColor(color);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public RxAlertDialog leftButtonBackground(Drawable background) {
+    public RxInputDialog leftButtonBackground(Drawable background) {
         viewHolder.leftButton.setBackground(background);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public RxAlertDialog middleButtonBackground(Drawable background) {
+    public RxInputDialog middleButtonBackground(Drawable background) {
         viewHolder.middleButton.setBackground(background);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public RxAlertDialog rightButtonBackground(Drawable background) {
+    public RxInputDialog rightButtonBackground(Drawable background) {
         viewHolder.rightButton.setBackground(background);
         return this;
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RxAlertDialog leftButtonBackgroundTintList(ColorStateList color) {
+    public RxInputDialog leftButtonBackgroundTintList(ColorStateList color) {
         viewHolder.leftButton.setBackgroundTintList(color);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RxAlertDialog middleButtonBackgroundTintList(ColorStateList color) {
+    public RxInputDialog middleButtonBackgroundTintList(ColorStateList color) {
         viewHolder.middleButton.setBackgroundTintList(color);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RxAlertDialog rightButtonBackgroundTintList(ColorStateList color) {
+    public RxInputDialog rightButtonBackgroundTintList(ColorStateList color) {
         viewHolder.rightButton.setBackgroundTintList(color);
         return this;
     }
 
-    public RxAlertDialog titleGravity(int gravity) {
+    public RxInputDialog titleGravity(int gravity) {
         viewHolder.title.setGravity(gravity);
         return this;
     }
 
-    public RxAlertDialog messageGravity(int gravity) {
+    public RxInputDialog messageGravity(int gravity) {
         viewHolder.message.setGravity(gravity);
         return this;
     }
 
     @Override
-    public RxAlertDialog title(CharSequence title) {
+    public RxInputDialog title(CharSequence title) {
         viewHolder.title.setVisibility(View.VISIBLE);
         viewHolder.title.setText(title);
         return this;
     }
 
     @Override
-    public RxAlertDialog title(int title) {
+    public RxInputDialog title(int title) {
         viewHolder.title.setVisibility(View.VISIBLE);
         viewHolder.title.setText(title);
         return this;
     }
 
-    public RxAlertDialog titleTextColor(int color) {
+    public RxInputDialog titleTextColor(int color) {
         viewHolder.title.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog titleTextColorResource(@ColorRes int color) {
+    public RxInputDialog titleTextColorResource(@ColorRes int color) {
         viewHolder.title.setTextColor(layout.getResources().getColor(color));
         return this;
     }
 
-    public RxAlertDialog titleTextColor(ColorStateList colors) {
+    public RxInputDialog titleTextColor(ColorStateList colors) {
         viewHolder.title.setTextColor(colors);
         return this;
     }
 
-    public RxAlertDialog message(CharSequence title) {
+    public RxInputDialog messageMaxLenght(int maxLenght) {
+        viewHolder.message.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLenght)});
+        return this;
+    }
+
+    public RxInputDialog message(CharSequence title) {
         viewHolder.message.setText(title);
         return this;
     }
 
-    public RxAlertDialog message(int title) {
+    public RxInputDialog messageHint(CharSequence title) {
+        viewHolder.message.setHint(title);
+        return this;
+    }
+
+    public RxInputDialog messageSelection(int index) {
+        viewHolder.message.setSelection(index);
+        return this;
+    }
+
+    public RxInputDialog messageSelectionEnd() {
+        viewHolder.message.setSelection(viewHolder.message.length());
+        return this;
+    }
+
+    public RxInputDialog message(int title) {
         viewHolder.message.setText(title);
         return this;
     }
 
+    public RxInputDialog messageHint(int title) {
+        viewHolder.message.setHint(title);
+        return this;
+    }
 
-    public RxAlertDialog messageTextColor(int color) {
+    public RxInputDialog messageTextColor(int color) {
         viewHolder.message.setTextColor(color);
         return this;
     }
 
-    public RxAlertDialog messageTextColorResource(@ColorRes int color) {
+    public RxInputDialog messageHintTextColor(int color) {
+        viewHolder.message.setHintTextColor(color);
+        return this;
+    }
+
+    public RxInputDialog messageTextColorResource(@ColorRes int color) {
         viewHolder.message.setTextColor(layout.getResources().getColor(color));
         return this;
     }
 
-    public RxAlertDialog messageTextColor(ColorStateList colors) {
+    public RxInputDialog messageTextColor(ColorStateList colors) {
         viewHolder.message.setTextColor(colors);
         return this;
     }
 
-    public RxAlertDialog layoutBackgroundColor(@ColorInt int color) {
+    public RxInputDialog messageHintTextColorResource(@ColorRes int color) {
+        viewHolder.message.setHintTextColor(layout.getResources().getColor(color));
+        return this;
+    }
+
+    public RxInputDialog messageHintTextColor(ColorStateList colors) {
+        viewHolder.message.setHintTextColor(colors);
+        return this;
+    }
+
+    public RxInputDialog layoutBackgroundColor(@ColorInt int color) {
         viewHolder.alertContainer.setCardBackgroundColor(color);
         return this;
     }
 
-    public RxAlertDialog bottomLayoutBackgroundColor(@ColorInt int color) {
+    public RxInputDialog bottomLayoutBackgroundColor(@ColorInt int color) {
         viewHolder.alertBottom.setBackgroundColor(color);
         return this;
     }
 
-    public RxAlertDialog bottomLayoutBackgroundResource(@DrawableRes int resid) {
+    public RxInputDialog bottomLayoutBackgroundResource(@DrawableRes int resid) {
         viewHolder.alertBottom.setBackgroundResource(resid);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public RxAlertDialog bottomLayoutBackgroundTintList(@Nullable ColorStateList tint) {
+    public RxInputDialog bottomLayoutBackgroundTintList(@Nullable ColorStateList tint) {
         viewHolder.alertBottom.setBackgroundTintList(tint);
         return this;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public RxAlertDialog bottomLayoutBackground(Drawable background) {
+    public RxInputDialog bottomLayoutBackground(Drawable background) {
         viewHolder.alertBottom.setBackground(background);
         return this;
     }
 
-    public RxAlertDialog lineColor(int color) {
+    public RxInputDialog lineColor(int color) {
         viewHolder.line0.setBackgroundColor(color);
         viewHolder.line1.setBackgroundColor(color);
         viewHolder.line2.setBackgroundColor(color);
@@ -382,7 +437,7 @@ public class RxAlertDialog extends RxDialog {
         view.setVisibility(View.VISIBLE);
     }
 
-    public RxAlertViewHolder getViewHolder() {
+    public RxInputViewHolder getViewHolder() {
         return viewHolder;
     }
 

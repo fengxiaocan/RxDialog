@@ -30,20 +30,20 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <TextView
+        <EditText
             android:id="@+id/alert_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="1"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="10dp"
-            android:maxHeight="@dimen/rx_alert_dialog_message_maxHeight"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMaxTextSize="50sp"
-            android:autoSizeMinTextSize="2sp"
-            android:textColor="@color/rx_alert_dialog_message_color"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="25dp"
+            android:padding="10dp"
+            android:maxHeight="@dimen/rx_input_dialog_message_maxHeight"
+            android:textColorHint="@color/rx_input_dialog_message_hint_color"
+            android:background="@drawable/shape_input_text_background"
+            android:textColor="@color/rx_input_dialog_message_color"
             android:textSize="@dimen/rx_dialog_message_size" />
 
         <View
@@ -66,8 +66,8 @@
                 android:background="@drawable/selector_alert_dialog_button_bg_left"
                 android:gravity="center"
                 android:padding="12dp"
-                android:textColor="@color/rx_alert_dialog_button_color"
-                android:textSize="@dimen/rx_dialog_button_size" />
+                android:textColor="@color/rx_input_dialog_button_color"
+                android:textSize="16sp" />
 
             <View
                 android:id="@+id/line1"
@@ -84,8 +84,8 @@
                 android:background="@drawable/selector_alert_dialog_button_bg_middle"
                 android:gravity="center"
                 android:padding="12dp"
-                android:textColor="@color/rx_alert_dialog_button_color"
-                android:textSize="@dimen/rx_dialog_button_size"
+                android:textColor="@color/rx_input_dialog_button_color"
+                android:textSize="16sp"
                 android:visibility="gone" />
 
             <View
@@ -103,8 +103,8 @@
                 android:background="@drawable/selector_alert_dialog_button_bg_right"
                 android:gravity="center"
                 android:padding="12dp"
-                android:textColor="@color/rx_alert_dialog_button_color"
-                android:textSize="@dimen/rx_dialog_button_size" />
+                android:textColor="@color/rx_input_dialog_button_color"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>

@@ -6,13 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.FloatRange;
+import androidx.annotation.LayoutRes;
 
 public class RxDialog implements IRxDialog {
     protected Context context;
@@ -24,15 +26,14 @@ public class RxDialog implements IRxDialog {
     protected RxDialog(Context context) {
         this.context = context;
         dialog = new Dialog(context);
-        width = (int) (getScreenWidth() * 0.9f);
+        width = (int) (getScreenWidth() * widthPercent());
     }
 
     public RxDialog(Context context, @LayoutRes int layoutId) {
         this(context);
-        layout = LayoutInflater.from(context)
-                               .inflate(layoutId, null);
+        layout = LayoutInflater.from(context).inflate(layoutId, null);
         dialog.setContentView(layout);
-        width = (int) (getScreenWidth() *  0.9f);
+        width = (int) (getScreenWidth() * widthPercent());
     }
 
     public RxDialog(View layout) {
@@ -40,7 +41,11 @@ public class RxDialog implements IRxDialog {
         dialog = new Dialog(context);
         this.layout = layout;
         dialog.setContentView(layout);
-        width = (int) (getScreenWidth() *  0.9f);
+        width = (int) (getScreenWidth() * widthPercent());
+    }
+
+    protected float widthPercent() {
+        return 0.9f;
     }
 
     public static RxDialog with(Context context, @LayoutRes int layoutId) {
@@ -125,9 +130,15 @@ public class RxDialog implements IRxDialog {
         return this;
     }
 
-
     public RxDialog width(int width) {
         this.width = width;
+        return this;
+    }
+
+    public RxDialog widthPercent(@FloatRange(from = 0.0f,
+            to = 1.0) float percent)
+    {
+        this.width = (int) (getScreenWidth() * percent);
         return this;
     }
 
@@ -145,9 +156,7 @@ public class RxDialog implements IRxDialog {
 
     public RxDialog background(@DrawableRes int resId) {
         Window window = dialog.getWindow();
-        window.setBackgroundDrawable(layout.getContext()
-                                           .getResources()
-                                           .getDrawable(resId));
+        window.setBackgroundDrawable(layout.getContext().getResources().getDrawable(resId));
         return this;
     }
 
@@ -159,8 +168,7 @@ public class RxDialog implements IRxDialog {
 
     public RxDialog padding(int left, int top, int right, int bottom) {
         Window window = dialog.getWindow();
-        window.getDecorView()
-              .setPadding(left, top, right, bottom);
+        window.getDecorView().setPadding(left, top, right, bottom);
         return this;
     }
 
@@ -266,8 +274,7 @@ public class RxDialog implements IRxDialog {
         WindowManager windowManager = (WindowManager) context.getSystemService(
                 Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay()
-                     .getMetrics(dm);// 给白纸设置宽高
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
         return dm.widthPixels;
     }
 
@@ -280,8 +287,7 @@ public class RxDialog implements IRxDialog {
         WindowManager windowManager = (WindowManager) context.getSystemService(
                 Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay()
-                     .getMetrics(dm);// 给白纸设置宽高
+        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
         return dm.heightPixels;
     }
 

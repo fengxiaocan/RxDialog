@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="rx_alert_dialog_color">@android:color/white</color>
+    <color name="rx_alert_dialog_button_bg_color">#F6F6F6</color>
+    <color name="rx_alert_dialog_button_color">@android:color/black</color>
+    <color name="rx_alert_dialog_title_color">@android:color/black</color>
+    <color name="rx_alert_dialog_message_color">@android:color/darker_gray</color>
+    <color name="rx_input_dialog_message_color">@android:color/black</color>
+    <color name="rx_input_dialog_message_hint_color">@android:color/darker_gray</color>
+    <color name="rx_input_dialog_button_color">#0076FF</color>
+    <color name="rx_input_dialog_message_bg_color">@android:color/transparent</color>
+    <color name="rx_input_dialog_line_color">#C6C6C6</color>
+    <color name="rx_dialog_line_color">#CDCED2</color>
+    <color name="rx_alert_dialog_button_pressed_bg_color">#C6C6C6</color>
+    <color name="rx_alert_dialog_button_left_bg_color">@color/rx_alert_dialog_button_bg_color</color>
+    <color name="rx_alert_dialog_button_middle_bg_color">@color/rx_alert_dialog_button_bg_color</color>
+    <color name="rx_alert_dialog_button_right_bg_color">@color/rx_alert_dialog_button_bg_color</color>
+
+    <color name="rx_alert_dialog_button_left_pressed_color">
+        @color/rx_alert_dialog_button_pressed_bg_color
+    </color>
+    <color name="rx_alert_dialog_button_middle_pressed_color">
+        @color/rx_alert_dialog_button_pressed_bg_color
+    </color>
+    <color name="rx_alert_dialog_button_right_pressed_color">
+        @color/rx_alert_dialog_button_pressed_bg_color
+    </color>
+</resources>
