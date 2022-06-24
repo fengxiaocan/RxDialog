@@ -1,5 +1,6 @@
 package com.app.dialoglib;
 
+import android.app.Dialog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,7 +21,7 @@ public class RxInputViewHolder {
     public LinearLayout alertLayout;
     public CardView alertContainer;
 
-    public RxInputViewHolder(View rootView) {
+    public RxInputViewHolder(Dialog rootView) {
         title = rootView.findViewById(R.id.alert_title);
         message = rootView.findViewById(R.id.alert_message);
         line0 = rootView.findViewById(R.id.line0);

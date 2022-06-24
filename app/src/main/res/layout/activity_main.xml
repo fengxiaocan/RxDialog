@@ -24,4 +24,26 @@
         android:layout_height="wrap_content"
         android:text="input dialog" />
 
+    <Button
+        android:id="@+id/bt_click3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="progress dialog1" />
+    <Button
+        android:id="@+id/bt_click4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="progress dialog2" />
+
+    <Button
+        android:id="@+id/bt_click5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="progress dialog4" />
+    <Button
+        android:id="@+id/bt_click6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RxIosDialog" />
+
 </LinearLayout>

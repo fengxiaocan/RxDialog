@@ -6,24 +6,32 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Message;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FloatRange;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 
-public class RxDialog implements IRxDialog {
+import com.app.lifedata.LifecycleData;
+
+public class RxDialog implements IRxDialog, LifecycleData {
     protected Context context;
     protected int height = WindowManager.LayoutParams.WRAP_CONTENT;
     protected int width = WindowManager.LayoutParams.WRAP_CONTENT;
     protected Dialog dialog;
-    protected View layout;
 
-    protected RxDialog(Context context) {
+    public RxDialog(Context context) {
         this.context = context;
         dialog = new Dialog(context);
         width = (int) (getScreenWidth() * widthPercent());
@@ -31,21 +39,14 @@ public class RxDialog implements IRxDialog {
 
     public RxDialog(Context context, @LayoutRes int layoutId) {
         this(context);
-        layout = LayoutInflater.from(context).inflate(layoutId, null);
-        dialog.setContentView(layout);
+        dialog.setContentView(layoutId);
         width = (int) (getScreenWidth() * widthPercent());
     }
 
     public RxDialog(View layout) {
-        this.context = layout.getContext();
-        dialog = new Dialog(context);
-        this.layout = layout;
+        this(layout.getContext());
         dialog.setContentView(layout);
         width = (int) (getScreenWidth() * widthPercent());
-    }
-
-    protected float widthPercent() {
-        return 0.9f;
     }
 
     public static RxDialog with(Context context, @LayoutRes int layoutId) {
@@ -56,9 +57,20 @@ public class RxDialog implements IRxDialog {
         return new RxDialog(layout);
     }
 
+
+    protected float widthPercent() {
+        return 0.9f;
+    }
+
+
+    @Override
+    public Dialog getDialog() {
+        return dialog;
+    }
+
     @Override
     public View getLayout() {
-        return layout;
+        return getWindow().getDecorView();
     }
 
     @Override
@@ -87,8 +99,23 @@ public class RxDialog implements IRxDialog {
         return this;
     }
 
+    public RxDialog setContentView(@NonNull View view) {
+        dialog.setContentView(view);
+        return this;
+    }
+
+    public RxDialog setContentView(@NonNull View view, @Nullable ViewGroup.LayoutParams params) {
+        dialog.setContentView(view, params);
+        return this;
+    }
+
+    public RxDialog addContentView(@NonNull View view, @Nullable ViewGroup.LayoutParams params) {
+        dialog.addContentView(view, params);
+        return this;
+    }
+
     public RxDialog findView(IFindView callback) {
-        callback.findView(layout);
+        callback.findView(dialog);
         return this;
     }
 
@@ -114,8 +141,7 @@ public class RxDialog implements IRxDialog {
      */
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public RxDialog dimAmount(float dimAmount) {
-        Window window = dialog.getWindow();
-        window.setDimAmount(dimAmount);
+        getWindow().setDimAmount(dimAmount);
         return this;
     }
 
@@ -136,39 +162,39 @@ public class RxDialog implements IRxDialog {
     }
 
     public RxDialog widthPercent(@FloatRange(from = 0.0f,
-            to = 1.0) float percent)
-    {
+            to = 1.0) float percent) {
         this.width = (int) (getScreenWidth() * percent);
         return this;
     }
 
+    public RxDialog heightPercent(@FloatRange(from = 0.0f,
+            to = 1.0) float percent) {
+        this.height = (int) (getScreenHeight() * percent);
+        return this;
+    }
+
     public RxDialog noBackground() {
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawable(null);
+        getWindow().setBackgroundDrawable(null);
         return this;
     }
 
     public RxDialog background(Drawable drawable) {
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawable(drawable);
+        getWindow().setBackgroundDrawable(drawable);
         return this;
     }
 
     public RxDialog background(@DrawableRes int resId) {
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawable(layout.getContext().getResources().getDrawable(resId));
+        getWindow().setBackgroundDrawable(getContext().getResources().getDrawable(resId));
         return this;
     }
 
     public RxDialog gravity(int gravity) {
-        Window window = dialog.getWindow();
-        window.setGravity(gravity);
+        getWindow().setGravity(gravity);
         return this;
     }
 
     public RxDialog padding(int left, int top, int right, int bottom) {
-        Window window = dialog.getWindow();
-        window.getDecorView().setPadding(left, top, right, bottom);
+        getWindow().getDecorView().setPadding(left, top, right, bottom);
         return this;
     }
 
@@ -247,8 +273,7 @@ public class RxDialog implements IRxDialog {
      * @param onKeyListener the on key listener
      * @return the ios dialog
      */
-    public RxDialog onKeyListener(DialogInterface.OnKeyListener onKeyListener)
-    {
+    public RxDialog onKeyListener(DialogInterface.OnKeyListener onKeyListener) {
         dialog.setOnKeyListener(onKeyListener);
         return this;
     }
@@ -259,9 +284,28 @@ public class RxDialog implements IRxDialog {
      * @param onDismissListener the on dismiss listener
      * @return the ios dialog
      */
-    public RxDialog onDismissListener(DialogInterface.OnDismissListener onDismissListener)
-    {
+    public RxDialog onDismissListener(DialogInterface.OnDismissListener onDismissListener) {
         dialog.setOnDismissListener(onDismissListener);
+        return this;
+    }
+
+    public RxDialog setOnCancelListener(DialogInterface.OnCancelListener listener) {
+        dialog.setOnCancelListener(listener);
+        return this;
+    }
+
+    public RxDialog setOnShowListener(DialogInterface.OnShowListener listener) {
+        dialog.setOnShowListener(listener);
+        return this;
+    }
+
+    public RxDialog setCancelMessage(Message msg) {
+        dialog.setCancelMessage(msg);
+        return this;
+    }
+
+    public RxDialog setDismissMessage(Message msg) {
+        dialog.setDismissMessage(msg);
         return this;
     }
 
@@ -291,7 +335,17 @@ public class RxDialog implements IRxDialog {
         return dm.heightPixels;
     }
 
+    @Override
+    public void onDetach() {
+        dismiss();
+    }
+
+    @Override
+    public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+
+    }
+
     public interface IFindView {
-        void findView(View layout);
+        void findView(Dialog dialog);
     }
 }

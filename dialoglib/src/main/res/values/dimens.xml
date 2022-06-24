@@ -9,4 +9,6 @@
     <dimen name="rx_input_dialog_line_width">0.5dp</dimen>
     <dimen name="rx_input_dialog_message_maxHeight">250dp</dimen>
     <dimen name="rx_alert_dialog_message_maxHeight">600dp</dimen>
+
+
 </resources>

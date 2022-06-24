@@ -1,17 +1,20 @@
 package com.app.dialoglib;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.Window;
 
 interface IRxDialog {
-     View getLayout();
+    Dialog getDialog();
 
-     void show();
+    View getLayout();
 
-     void dismiss();
+    void show();
 
-     Window getWindow();
+    void dismiss();
 
-     Context getContext();
+    Window getWindow();
+
+    Context getContext();
 }
