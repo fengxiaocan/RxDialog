@@ -348,4 +348,17 @@ public class RxDialog implements IRxDialog, LifecycleData {
     public interface IFindView {
         void findView(Dialog dialog);
     }
+
+    protected void hideView(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+    protected void showView(View... views) {
+        for (View view : views) {
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

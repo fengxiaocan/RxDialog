@@ -182,14 +182,13 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
     @Override
     public void show() {
         if (control.isShowLeft()) {
+            showView(holder.alertBottom, holder.line0);
             if (control.isShowRight()) {
                 if (control.isShowMiddle()) {
-                    showView(holder.line1);
-                    showView(holder.line2);
+                    showView(holder.line1, holder.line2);
                 } else {
                     showView(holder.line1);
-                    hideView(holder.line2);
-                    hideView(holder.middleButton);
+                    hideView(holder.line2, holder.middleButton);
                 }
             } else {
                 if (control.isShowMiddle()) {
@@ -201,22 +200,19 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
             }
         } else {
             if (control.isShowRight()) {
+                showView(holder.alertBottom, holder.line0);
                 if (control.isShowMiddle()) {
                     hideView(holder.line1);
                     showView(holder.line2);
                 } else {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
+                    hideView(holder.line1, holder.line2);
                 }
             } else {
                 if (control.isShowMiddle()) {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
-                    hideView(holder.leftButton);
-                    hideView(holder.rightButton);
+                    showView(holder.alertBottom,holder.line0);
+                    hideView(holder.line1, holder.line2, holder.leftButton, holder.rightButton);
                 } else {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
+                    hideView(holder.alertBottom, holder.line0, holder.line1, holder.line2);
                 }
             }
         }
@@ -351,13 +347,6 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
         return this;
     }
 
-    private void hideView(View view) {
-        view.setVisibility(View.GONE);
-    }
-
-    private void showView(View view) {
-        view.setVisibility(View.VISIBLE);
-    }
 
     public RxAlertViewHolder getHolder() {
         return holder;
@@ -403,7 +392,7 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
 
     @Override
     public RxAlertDialog leftButton(CharSequence title, int gravity) {
-        control.leftButton(title,gravity);
+        control.leftButton(title, gravity);
         return this;
     }
 
@@ -421,7 +410,7 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
 
     @Override
     public RxAlertDialog setButtonGravity(int gravity) {
-        control.setButtonGravity( gravity);
+        control.setButtonGravity(gravity);
         return this;
     }
 
@@ -661,7 +650,7 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
 
     @Override
     public RxAlertDialog setButtonTextSize(int unit, float textSize) {
-        control.setButtonTextSize(unit,textSize);
+        control.setButtonTextSize(unit, textSize);
         return this;
     }
 
@@ -751,7 +740,7 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
 
     @Override
     public RxAlertDialog title(CharSequence text, int gravity) {
-        control.title(text,gravity);
+        control.title(text, gravity);
         return this;
     }
 

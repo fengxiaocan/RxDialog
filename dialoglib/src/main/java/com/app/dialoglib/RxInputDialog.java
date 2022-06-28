@@ -43,14 +43,13 @@ public class RxInputDialog extends RxDialog implements IDialogText<RxInputDialog
     @Override
     public void show() {
         if (control.isShowLeft()) {
+            showView(holder.alertBottom, holder.line0);
             if (control.isShowRight()) {
                 if (control.isShowMiddle()) {
-                    showView(holder.line1);
-                    showView(holder.line2);
+                    showView(holder.line1, holder.line2);
                 } else {
                     showView(holder.line1);
-                    hideView(holder.line2);
-                    hideView(holder.middleButton);
+                    hideView(holder.line2, holder.middleButton);
                 }
             } else {
                 if (control.isShowMiddle()) {
@@ -62,22 +61,19 @@ public class RxInputDialog extends RxDialog implements IDialogText<RxInputDialog
             }
         } else {
             if (control.isShowRight()) {
+                showView(holder.alertBottom, holder.line0);
                 if (control.isShowMiddle()) {
                     hideView(holder.line1);
                     showView(holder.line2);
                 } else {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
+                    hideView(holder.line1, holder.line2);
                 }
             } else {
                 if (control.isShowMiddle()) {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
-                    hideView(holder.leftButton);
-                    hideView(holder.rightButton);
+                    showView(holder.alertBottom, holder.line0);
+                    hideView(holder.line1, holder.line2, holder.leftButton, holder.rightButton);
                 } else {
-                    hideView(holder.line1);
-                    hideView(holder.line2);
+                    hideView(holder.alertBottom, holder.line0, holder.line1, holder.line2);
                 }
             }
         }

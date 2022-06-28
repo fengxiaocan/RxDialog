@@ -25,19 +25,19 @@ class DialogButtonControl<T> implements IDialogText<T> {
     }
 
     boolean isShowLeft() {
-        return leftButton.getVisibility() == View.VISIBLE;
+        return leftButton.getText().length() > 0;
     }
 
     boolean isShowRight() {
-        return rightButton.getVisibility() == View.VISIBLE;
+        return rightButton.getText().length() > 0;
     }
 
     boolean isShowMiddle() {
-        return middleButton.getVisibility() == View.VISIBLE;
+        return middleButton.getText().length() > 0;
     }
 
     boolean isShowTitle() {
-        return title.getText().length() == View.VISIBLE;
+        return title.getText().length() > 0;
     }
 
     @Override
