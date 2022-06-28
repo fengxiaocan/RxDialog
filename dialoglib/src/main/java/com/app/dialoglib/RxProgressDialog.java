@@ -3,10 +3,12 @@ package com.app.dialoglib;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Message;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -141,7 +143,6 @@ public class RxProgressDialog extends RxDialog {
         progressBar.setSecondaryProgress(value);
         return this;
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -305,6 +306,136 @@ public class RxProgressDialog extends RxDialog {
 
     public ProgressBar getProgressBar() {
         return progressBar;
+    }
+
+    @Override
+    public RxProgressDialog findView(RxDialog.IFindView callback) {
+        return (RxProgressDialog) super.findView(callback);
+    }
+
+    @Override
+    public RxProgressDialog alpha(float alpha) {
+        return (RxProgressDialog) super.alpha(alpha);
+    }
+
+    @Override
+    public RxProgressDialog dimAmount(float dimAmount) {
+        return (RxProgressDialog) super.dimAmount(dimAmount);
+    }
+
+    @Override
+    public RxProgressDialog layout(int width, int height) {
+        return (RxProgressDialog) super.layout(width, height);
+    }
+
+    @Override
+    public RxProgressDialog height(int height) {
+        return (RxProgressDialog) super.height(height);
+    }
+
+    @Override
+    public RxProgressDialog width(int width) {
+        return (RxProgressDialog) super.width(width);
+    }
+
+    @Override
+    public RxProgressDialog widthPercent(float percent) {
+        return (RxProgressDialog) super.widthPercent(percent);
+    }
+
+    @Override
+    public RxProgressDialog heightPercent(float percent) {
+        return (RxProgressDialog) super.heightPercent(percent);
+    }
+
+    @Override
+    public RxProgressDialog noBackground() {
+        return (RxProgressDialog) super.noBackground();
+    }
+
+    @Override
+    public RxProgressDialog background(Drawable drawable) {
+        return (RxProgressDialog) super.background(drawable);
+    }
+
+    @Override
+    public RxProgressDialog background(int resId) {
+        return (RxProgressDialog) super.background(resId);
+    }
+
+    @Override
+    public RxProgressDialog gravity(int gravity) {
+        return (RxProgressDialog) super.gravity(gravity);
+    }
+
+    @Override
+    public RxProgressDialog padding(int left, int top, int right, int bottom) {
+        return (RxProgressDialog) super.padding(left, top, right, bottom);
+    }
+
+    @Override
+    public RxProgressDialog matchWidth() {
+        return (RxProgressDialog) super.matchWidth();
+    }
+
+    @Override
+    public RxProgressDialog matchHeight() {
+        return (RxProgressDialog) super.matchHeight();
+    }
+
+    @Override
+    public RxProgressDialog matchScreen() {
+        return (RxProgressDialog) super.matchScreen();
+    }
+
+    @Override
+    public RxProgressDialog canceledOnTouchOutside(boolean cancel) {
+        return (RxProgressDialog) super.canceledOnTouchOutside(cancel);
+    }
+
+    @Override
+    public RxProgressDialog cancelable(boolean cancel) {
+        return (RxProgressDialog) super.cancelable(cancel);
+    }
+
+    @Override
+    public RxProgressDialog cancel(boolean cancel) {
+        return (RxProgressDialog) super.cancel(cancel);
+    }
+
+    @Override
+    public RxProgressDialog onKeyListener(DialogInterface.OnKeyListener onKeyListener) {
+        return (RxProgressDialog) super.onKeyListener(onKeyListener);
+    }
+
+    @Override
+    public RxProgressDialog onDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        return (RxProgressDialog) super.onDismissListener(onDismissListener);
+    }
+
+    @Override
+    public RxProgressDialog setOnCancelListener(DialogInterface.OnCancelListener listener) {
+        return (RxProgressDialog) super.setOnCancelListener(listener);
+    }
+
+    @Override
+    public RxProgressDialog setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        return (RxProgressDialog) super.setOnDismissListener(listener);
+    }
+
+    @Override
+    public RxProgressDialog setOnShowListener(DialogInterface.OnShowListener listener) {
+        return (RxProgressDialog) super.setOnShowListener(listener);
+    }
+
+    @Override
+    public RxProgressDialog setCancelMessage(Message msg) {
+        return (RxProgressDialog) super.setCancelMessage(msg);
+    }
+
+    @Override
+    public RxProgressDialog setDismissMessage(Message msg) {
+        return (RxProgressDialog) super.setDismissMessage(msg);
     }
 
     public interface IFindView {

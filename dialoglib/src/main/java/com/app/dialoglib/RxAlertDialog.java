@@ -164,6 +164,10 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
         return (RxAlertDialog) super.setOnCancelListener(listener);
     }
 
+    public RxAlertDialog setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        return (RxAlertDialog) super.setOnDismissListener(listener);
+    }
+
     @Override
     public RxAlertDialog setOnShowListener(DialogInterface.OnShowListener listener) {
         return (RxAlertDialog) super.setOnShowListener(listener);
@@ -209,7 +213,7 @@ public class RxAlertDialog extends RxDialog implements IDialogText<RxAlertDialog
                 }
             } else {
                 if (control.isShowMiddle()) {
-                    showView(holder.alertBottom,holder.line0);
+                    showView(holder.alertBottom, holder.line0);
                     hideView(holder.line1, holder.line2, holder.leftButton, holder.rightButton);
                 } else {
                     hideView(holder.alertBottom, holder.line0, holder.line1, holder.line2);

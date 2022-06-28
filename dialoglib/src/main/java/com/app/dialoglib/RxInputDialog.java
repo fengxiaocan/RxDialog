@@ -211,6 +211,10 @@ public class RxInputDialog extends RxDialog implements IDialogText<RxInputDialog
         return (RxInputDialog) super.setOnCancelListener(listener);
     }
 
+    public RxInputDialog setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        return (RxInputDialog) super.setOnDismissListener(listener);
+    }
+
     @Override
     public RxInputDialog setOnShowListener(DialogInterface.OnShowListener listener) {
         return (RxInputDialog) super.setOnShowListener(listener);

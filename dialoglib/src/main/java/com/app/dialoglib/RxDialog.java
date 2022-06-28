@@ -294,6 +294,11 @@ public class RxDialog implements IRxDialog, LifecycleData {
         return this;
     }
 
+    public RxDialog setOnDismissListener(DialogInterface.OnDismissListener listener) {
+        dialog.setOnDismissListener(listener);
+        return this;
+    }
+
     public RxDialog setOnShowListener(DialogInterface.OnShowListener listener) {
         dialog.setOnShowListener(listener);
         return this;
