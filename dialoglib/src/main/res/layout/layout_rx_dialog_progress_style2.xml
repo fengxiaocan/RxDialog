@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
                 android:gravity="left"
                 android:text="loading..."
                 android:textColor="@color/rx_dialog_progress_message_color"

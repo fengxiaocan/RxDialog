@@ -2,7 +2,7 @@
 <resources>
     <dimen name="rx_alert_dialog_radius">8dp</dimen>
     <dimen name="rx_input_dialog_radius">13dp</dimen>
-    <dimen name="rx_dialog_title_size">16sp</dimen>
+    <dimen name="rx_dialog_title_size">18sp</dimen>
     <dimen name="rx_dialog_message_size">16sp</dimen>
     <dimen name="rx_dialog_button_size">16sp</dimen>
     <dimen name="rx_input_dialog_message_radius">3dp</dimen>
